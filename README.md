@@ -32,3 +32,25 @@
 - 만약 제너릭을 통해 타입 어노테이션을 하지 않더라도 초기화 값을 통해 타입이 정해짐.
 - input태그의 onChange 나 form 태그의 onSubmit같은 이벤트 핸들러의 객체 타입을 알수 없다.
 - 이는 검색을통해 알수도 있지만, 태그의 이벤트 핸들러를 적고 마우스를 올리면 해당 객체의 타입을 알 수 있음.
+
+3. typescript를 통한 상태 관리하기 (useReducer)
+
+- useState와 마찬가지로 타입을 미리 지정하고 제너릭을 통해 타입을 지정해주어야함.
+- 타입 지정을 통해 자동완성으로 간편하게 작업이가능함.
+- 유니온 타입등을 활용하여 값을 좀더 제한적이고 안정성 있게 사용 할 수 있었음.
+
+4. typescript를 통한 상태 관리하기 (contextAPI)
+
+- 기존의 React에서 contextAPI를 잘 사용하지 않아서 contextAPI를 다시한번 확인 할 수 있는 좋은 기회가 되었음.
+- typescript에서 사용할 경우 제너릭으로 타입을 지정하고, 초기화할 때 null을 사용함.
+- Dispatch 같은 경우 React 내장 타입이 있어서 그것을 불러 들이고 그것에 제너릭을 함 ex) createContext<Dispatch<내타입> | null>(null);
+- context component에서 context함수를 활용하여 따로 자식 component에서 context를 사용 안하고 사용하기위하여
+<pre><code>
+    const StateContext()=>{
+        const state = context(StateContextApi);
+        if(!state){throw new Error("에러에러")}
+        return state;
+    }
+</code></pre>
+
+- 위의 코드처럼 if문을 통해 state의 값을 검사 하지 않으면, null값이 리턴될 수도 있어서 오류가 발생함.
